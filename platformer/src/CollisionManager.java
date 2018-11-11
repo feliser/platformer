@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -514,28 +513,23 @@ public class CollisionManager
 					}
 				}
 			}
+			
+			if(EntityList.get(i).isPlayer)
+			{
+				String[] endPos = Levels.end.split(",");
+				
+				if(AABB.isTouching(new AABB(EntityList.get(i).x, EntityList.get(i).y, EntityList.get(i).width, EntityList.get(i).height), new AABB(((Integer.parseInt(endPos[0]) * TILE_SIZE)), (-(Integer.parseInt(endPos[1]) * TILE_SIZE)), TILE_SIZE, TILE_SIZE)))
+				{
+					Main.timerStarted = false;
+					Main.active = false;
+					
+					Main.right = false;
+					Main.left = false;
+					Main.space = false;
+					
+					EntityList.get(i).xV = 0;
+				}
+			}
 		}
-	}
-	
-	public static void draw(Graphics g)
-	{
-//		for(int i = 0; i < PlatformList.size(); i++)
-//		{
-//			String[] tokens = PlatformList.get(i).split(",");
-//
-//			if(tokens[2].equals("1"))
-//			{
-//				g.setColor(Color.GRAY);
-//				g.drawRect(((Integer.parseInt(tokens[0]) * TILE_SIZE)) - Main.xScroll + Main.xOffset, (-(Integer.parseInt(tokens[1]) * TILE_SIZE)) - Main.yScroll + Main.yOffset, TILE_SIZE, TILE_SIZE);
-//			}
-//			else
-//			{
-//				g.setColor(Color.BLACK);
-//				g.drawRect(((Integer.parseInt(tokens[0]) * TILE_SIZE)) - Main.xScroll + Main.xOffset, (-(Integer.parseInt(tokens[1]) * TILE_SIZE)) - Main.yScroll + Main.yOffset, TILE_SIZE, TILE_SIZE);
-//			}
-//		}
-//		g.setColor(Color.BLACK);
-//		
-		GameTimer.draw(g);
 	}
 }

@@ -21,7 +21,7 @@ public class Main implements KeyListener {
 	public ActionListener updateListener;
 	public Player player;
 	
-	public static boolean initializing = true, timerStarted = false;
+	public static boolean initializing = true, timerStarted = false, active = true;
 	public static boolean right, left, space, down, jump = true;
 	public static int xScroll, yScroll, xOffset, yOffset;
 	public static final double zoom = 2.5;
@@ -45,8 +45,6 @@ public class Main implements KeyListener {
 		Levels.loadLevel("1.txt");
 		
 		player = new Player(-58, 223, 52, 96);
-	
-	
 		
 		initializing = false;
 		timer.start();
@@ -103,10 +101,9 @@ public class Main implements KeyListener {
 	
 	public void draw(Graphics g)
 	{
-		player.draw(g);
-		CollisionManager.draw(g);
-		
 		Levels.draw(g);
+		player.draw(g);
+		GameTimer.draw(g);
 	}
 	
 	public void tick()
@@ -134,42 +131,46 @@ public class Main implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_Z || e.getKeyCode() == KeyEvent.VK_X || e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)
+		if(active)
 		{
-			space = true;
-			
-			if(!timerStarted)
+			if(e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_Z || e.getKeyCode() == KeyEvent.VK_X || e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)
 			{
-				timerStarted = true;
+				space = true;
+				
+				if(!timerStarted)
+				{
+					timerStarted = true;
+				}
+			}
+			if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
+			{
+				right = true;
+				
+				if(!timerStarted)
+				{
+					timerStarted = true;
+				}
+			}
+			if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A)
+			{
+				left = true;
+				
+				if(!timerStarted)
+				{
+					timerStarted = true;
+				}
+			}
+			if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
+			{
+				down = true;
+				
+				if(!timerStarted)
+				{
+					timerStarted = true;
+				}
 			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
-		{
-			right = true;
-			
-			if(!timerStarted)
-			{
-				timerStarted = true;
-			}
-		}
-		if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A)
-		{
-			left = true;
-			
-			if(!timerStarted)
-			{
-				timerStarted = true;
-			}
-		}
-		if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
-		{
-			down = true;
-			
-			if(!timerStarted)
-			{
-				timerStarted = true;
-			}
-		}
+		
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
 		{
 			System.exit(0);
@@ -177,35 +178,40 @@ public class Main implements KeyListener {
 		if(e.getKeyCode() == KeyEvent.VK_R)
 		{
 			player.reset();
+			active = true;
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_Z || e.getKeyCode() == KeyEvent.VK_X || e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)
+		if(active)
 		{
-			if(player.yV < -2 && !player.wallJump)
+			if(e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_Z || e.getKeyCode() == KeyEvent.VK_X || e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)
 			{
-				player.yV *= 0.5;
-			}
+				if(player.yV < -2 && !player.wallJump)
+				{
+					player.yV *= 0.5;
+				}
 
-			space = false;
-			jump = true;
+				space = false;
+				jump = true;
+			}
+			if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
+			{
+				right = false;
+				player.acceleration = 0.3f;
+			}
+			if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A)
+			{
+				left = false;	
+				player.acceleration = 0.3f;
+			}
+			if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
+			{
+				down = false;
+			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
-		{
-			right = false;
-			player.acceleration = 0.3f;
-		}
-		if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A)
-		{
-			left = false;	
-			player.acceleration = 0.3f;
-		}
-		if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
-		{
-			down = false;
-		}
+	
 	}
 	
 	@Override

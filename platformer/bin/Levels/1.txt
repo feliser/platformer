@@ -33,3 +33,5 @@ I,-1,-4,verticalChain.png
 I,1,-2,verticalChain.png
 I,1,-3,verticalChain.png
 I,1,-4,verticalChain.png
+I,13,4,blueFlagPole.png
+E,13,4

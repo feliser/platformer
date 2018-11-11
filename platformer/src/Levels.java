@@ -14,8 +14,7 @@ public class Levels
 	public static ArrayList<String> infoList = new ArrayList<String>();
 	public static final String IMAGES_PATH_PREFIX = "Images/";
 	public static final String LEVELS_PATH_PREFIX = "/Levels/";
-	public static final boolean IS_WINDOWS = System.getProperty( "os.name" ).contains( "indow" );
-
+	public static String end;
 	
 	public static void addImage(String filename, int x, int y) throws IOException
 	{
@@ -34,6 +33,10 @@ public class Levels
 			
 			//g.drawStrrirrrrng(tokens[0] + ", " + tokens[1], ((Integer.parseInt(tokens[0]) * CollisionManager.TILE_SIZE)) - Main.xScroll + Main.xOffset, (-(Integer.parseInt(tokens[1]) * CollisionManager.TILE_SIZE)) - Main.yScroll + Main.yOffset);
 		}
+		
+		String[] tokens = end.split(",");
+		
+		g.drawRect(((Integer.parseInt(tokens[0]) * CollisionManager.TILE_SIZE)) - Main.xScroll + Main.xOffset, (-(Integer.parseInt(tokens[1]) * CollisionManager.TILE_SIZE)) - Main.yScroll + Main.yOffset, CollisionManager.TILE_SIZE, CollisionManager.TILE_SIZE);
 	}
 	
 	public static void loadLevel(String filename)
@@ -55,6 +58,10 @@ public class Levels
 				else if(tokens[0].equals("I"))
 				{
 					addImage(tokens[3], Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
+				}
+				else if(tokens[0].equals("E"))
+				{
+					end = (tokens[1] + "," + tokens[2]);
 				}
 			}
 			br.close();
