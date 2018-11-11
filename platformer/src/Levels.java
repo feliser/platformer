@@ -14,7 +14,7 @@ public class Levels
 	public static ArrayList<String> infoList = new ArrayList<String>();
 	public static final String IMAGES_PATH_PREFIX = "Images/";
 	public static final String LEVELS_PATH_PREFIX = "/Levels/";
-	public static String end;
+	public static AABB end;
 	
 	public static void addImage(String filename, int x, int y) throws IOException
 	{
@@ -33,10 +33,7 @@ public class Levels
 			
 			//g.drawStrrirrrrng(tokens[0] + ", " + tokens[1], ((Integer.parseInt(tokens[0]) * CollisionManager.TILE_SIZE)) - Main.xScroll + Main.xOffset, (-(Integer.parseInt(tokens[1]) * CollisionManager.TILE_SIZE)) - Main.yScroll + Main.yOffset);
 		}
-		
-		String[] tokens = end.split(",");
-		
-		g.drawRect(((Integer.parseInt(tokens[0]) * CollisionManager.TILE_SIZE)) - Main.xScroll + Main.xOffset, (-(Integer.parseInt(tokens[1]) * CollisionManager.TILE_SIZE)) - Main.yScroll + Main.yOffset, CollisionManager.TILE_SIZE, CollisionManager.TILE_SIZE);
+		//g.drawRect();
 	}
 	
 	public static void loadLevel(String filename)
@@ -53,7 +50,8 @@ public class Levels
 			
 				if(tokens[0].equals("P"))
 				{
-					CollisionManager.addPlatform(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]), Integer.parseInt(tokens[3]), tokens[4]);
+					CollisionManager.addPlatform(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]), Integer.parseInt(tokens[3]));
+					addImage(tokens[4], Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
 				}
 				else if(tokens[0].equals("I"))
 				{
@@ -61,7 +59,7 @@ public class Levels
 				}
 				else if(tokens[0].equals("E"))
 				{
-					end = (tokens[1] + "," + tokens[2]);
+					end = new AABB(Integer.parseInt(tokens[1]) * CollisionManager.TILE_SIZE, -(Integer.parseInt(tokens[2]) * CollisionManager.TILE_SIZE), CollisionManager.TILE_SIZE, CollisionManager.TILE_SIZE);
 				}
 			}
 			br.close();
@@ -72,28 +70,6 @@ public class Levels
 	    {
 			e.printStackTrace();
 		}
-	   
-
-
-//		try {
-////			List<String> linesOfFile = Files.readAllLines(path);
-////			if(linesOfFile.size() != 0)
-////			{
-////				for(int i = 0; i < linesOfFile.size(); i++)
-////				{
-////					
-////				}
-////			}
-////			else
-////			{
-////				System.out.println("Level: " + filename + " is null!");
-////			}
-//		} 
-//		catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} 
-
 	}
 
 }

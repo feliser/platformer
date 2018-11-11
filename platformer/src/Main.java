@@ -97,6 +97,8 @@ public class Main implements KeyListener {
 		frame.setVisible(true);
 		
 		CollisionManager.init();
+		
+		GameTimer.init();
 	}
 	
 	public void draw(Graphics g)
