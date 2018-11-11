@@ -70,7 +70,7 @@ public class CollisionManager
 						
 						if(AABB.isTouching(new AABB(EntityList.get(i).x - 6, EntityList.get(i).y, 6, EntityList.get(i).height), new AABB(((Integer.parseInt(tokens[0]) * TILE_SIZE)), (-(Integer.parseInt(tokens[1]) * TILE_SIZE)), TILE_SIZE, TILE_SIZE)))
 						{
-							System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
+							//System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
 							if(tokens[2].equals("1"))
 							{
 								EntityList.get(i).lwallJump = true;
@@ -78,7 +78,7 @@ public class CollisionManager
 						}
 						if(AABB.isTouching(new AABB(EntityList.get(i).x + EntityList.get(i).width, EntityList.get(i).y, 6, EntityList.get(i).height), new AABB(((Integer.parseInt(tokens[0]) * TILE_SIZE)), (-(Integer.parseInt(tokens[1]) * TILE_SIZE)), TILE_SIZE, TILE_SIZE)))
 						{
-							System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
+							//System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
 							if(tokens[2].equals("1"))
 							{
 								EntityList.get(i).rwallJump = true;
@@ -104,7 +104,7 @@ public class CollisionManager
 						String[] tokens = PlatformList.get(j).split(",");
 						if(AABB.isTouching(new AABB(EntityList.get(i).x - 6, EntityList.get(i).y, 6, EntityList.get(i).height), new AABB(((Integer.parseInt(tokens[0]) * TILE_SIZE)), (-(Integer.parseInt(tokens[1]) * TILE_SIZE)), TILE_SIZE, TILE_SIZE)))
 						{
-							System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
+							//System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
 							if(tokens[2].equals("1"))
 							{
 								EntityList.get(i).lwallJump = true;
@@ -112,7 +112,7 @@ public class CollisionManager
 						}
 						if(AABB.isTouching(new AABB(EntityList.get(i).x + EntityList.get(i).width, EntityList.get(i).y, 6, EntityList.get(i).height), new AABB(((Integer.parseInt(tokens[0]) * TILE_SIZE)), (-(Integer.parseInt(tokens[1]) * TILE_SIZE)), TILE_SIZE, TILE_SIZE)))
 						{
-							System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
+							//System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
 							if(tokens[2].equals("1"))
 							{
 								EntityList.get(i).rwallJump = true;
@@ -141,7 +141,7 @@ public class CollisionManager
 						String[] tokens = PlatformList.get(j).split(",");
 						if(AABB.isTouching(new AABB(EntityList.get(i).x - 6, EntityList.get(i).y, 6, EntityList.get(i).height), new AABB(((Integer.parseInt(tokens[0]) * TILE_SIZE)), (-(Integer.parseInt(tokens[1]) * TILE_SIZE)), TILE_SIZE, TILE_SIZE)))
 						{
-							System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
+						//	System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
 							if(tokens[2].equals("1"))
 							{
 								EntityList.get(i).lwallJump = true;
@@ -149,7 +149,7 @@ public class CollisionManager
 						}
 						if(AABB.isTouching(new AABB(EntityList.get(i).x + EntityList.get(i).width, EntityList.get(i).y, 6, EntityList.get(i).height), new AABB(((Integer.parseInt(tokens[0]) * TILE_SIZE)), (-(Integer.parseInt(tokens[1]) * TILE_SIZE)), TILE_SIZE, TILE_SIZE)))
 						{
-							System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
+							//System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
 							if(tokens[2].equals("1"))
 							{
 								EntityList.get(i).rwallJump = true;
@@ -175,7 +175,7 @@ public class CollisionManager
 						String[] tokens = PlatformList.get(j).split(",");
 						if(AABB.isTouching(new AABB(EntityList.get(i).x - 6, EntityList.get(i).y, 6, EntityList.get(i).height), new AABB(((Integer.parseInt(tokens[0]) * TILE_SIZE)), (-(Integer.parseInt(tokens[1]) * TILE_SIZE)), TILE_SIZE, TILE_SIZE)))
 						{
-							System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
+							//System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
 							if(tokens[2].equals("1"))
 							{
 								EntityList.get(i).lwallJump = true;
@@ -183,7 +183,7 @@ public class CollisionManager
 						}
 						if(AABB.isTouching(new AABB(EntityList.get(i).x + EntityList.get(i).width, EntityList.get(i).y, 6, EntityList.get(i).height), new AABB(((Integer.parseInt(tokens[0]) * TILE_SIZE)), (-(Integer.parseInt(tokens[1]) * TILE_SIZE)), TILE_SIZE, TILE_SIZE)))
 						{
-							System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
+							//System.out.println(tokens[2] + " ? " + tokens[2].equals("1"));
 							if(tokens[2].equals("1"))
 							{
 								EntityList.get(i).rwallJump = true;

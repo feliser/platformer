@@ -214,7 +214,7 @@ public class Player extends Entity
 			}
 		}
 		
-		System.out.println(canWallJump);
+		//System.out.println(canWallJump);
 		
 		rwallJump = false;
 		lwallJump = false;
@@ -250,6 +250,8 @@ public class Player extends Entity
 		yV = 0;
 		x = rX;
 		y = rY;
+		
+		Main.timerStarted = false;
 		
 		GameTimer.reset();
 	}

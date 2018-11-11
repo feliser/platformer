@@ -6,9 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -20,71 +21,31 @@ public class Main implements KeyListener {
 	public ActionListener updateListener;
 	public Player player;
 	
-	public boolean initializing = true;
+	public static boolean initializing = true, timerStarted = false;
 	public static boolean right, left, space, down, jump = true;
 	public static int xScroll, yScroll, xOffset, yOffset;
 	public static final double zoom = 2.5;
 	
 	public static void main(String[] args)
 	{
-		new Main();
+		try {
+            new Main();
+        } 
+		catch (Throwable t) {
+            JOptionPane.showMessageDialog(
+            null, t.getClass().getSimpleName() + ": " + t.getMessage() + "\n" + Arrays.toString(t.getStackTrace()));
+            throw t;
+        }
 	}
 	
 	public Main()
 	{
 		init();
+		
+		Levels.loadLevel("1.txt");
+		
 		player = new Player(-58, 223, 52, 96);
-		CollisionManager.addPlatform(1, -5, 1, "blueBrick-full.png");
-		CollisionManager.addPlatform(0, -5, 1, "blueBrick-horizontal.png");
-		CollisionManager.addPlatform(-1, -5, 1, "blueBrick-full.png");
-		CollisionManager.addPlatform(-2, -4, 1, "blueBrick-horizontal.png");
-		CollisionManager.addPlatform(-2, -3, 1, "blueBrick-full.png");
-		CollisionManager.addPlatform(2, -1, 1, "blueBrick-rightEnd.png");
-		CollisionManager.addPlatform(12, 3, 1, "blueBrick-horizontal.png");
-		
-		CollisionManager.addPlatform(-1, -1, 1, "blueBrick-full.png");
-		CollisionManager.addPlatform(0, -1, 1, "blueBrick-horizontal.png");
-		CollisionManager.addPlatform(1, -1, 1, "blueBrick-horizontal.png");
-		CollisionManager.addPlatform(2, 0, 1, "blueBrick-full.png");
-		
-		CollisionManager.addPlatform(2, -6, 1, "blueBrick-full.png");
-		CollisionManager.addPlatform(3, -6, 1, "blueBrick-horizontal.png");
-		CollisionManager.addPlatform(4, -6, 1, "blueBrick-horizontal.png");
-		CollisionManager.addPlatform(5, -6, 1, "blueBrick-rightEnd.png");
-		
-		CollisionManager.addPlatform(12, -5, 1, "blueBrick-leftEnd.png");
-		CollisionManager.addPlatform(13, -5, 1, "blueBrick-horizontal.png");
-		CollisionManager.addPlatform(14, -5, 1, "blueBrick-rightEnd.png");
-		CollisionManager.addPlatform(18, -2, 1, "blueBrick-horizontal.png");
-		CollisionManager.addPlatform(18, -1, 1, "blueBrick-horizontal.png");
-		CollisionManager.addPlatform(18, 0, 1, "blueBrick-horizontal.png");
-		
-		CollisionManager.addPlatform(13, 2, 1, "blueBrick-horizontal.png");
-		CollisionManager.addPlatform(14, 2, 1, "blueBrick-horizontal.png");
-		
-		try {
-			Levels.addImage("blueBrick-deco1.png", 2, 1);
-			Levels.addImage("blueBrick-full.png", -2, -6);
-			Levels.addImage("blueBrick-vertical.png", -2, -4);
-			Levels.addImage("blueBrick-vertical.png", -2, -5);
-			Levels.addImage("horizontalChain.png", -1, -6);
-			Levels.addImage("horizontalChain.png", -0, -6);
-			Levels.addImage("horizontalChain.png", 1, -6);
-			
-			Levels.addImage("verticalChain.png", -1, -2);
-			Levels.addImage("verticalChain.png", -1, -3);
-			Levels.addImage("verticalChain.png", -1, -4);
-			
-			Levels.addImage("verticalChain.png", 1, -2);
-			Levels.addImage("verticalChain.png", 1, -3);
-			Levels.addImage("verticalChain.png", 1, -4);
-		
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	
 	
 		
 		initializing = false;
@@ -164,7 +125,11 @@ public class Main implements KeyListener {
 		
 		CollisionManager.update();
 		
-		GameTimer.update();
+		if(timerStarted)
+		{
+			GameTimer.update();
+		}
+
 	}
 
 	@Override
@@ -172,18 +137,38 @@ public class Main implements KeyListener {
 		if(e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_Z || e.getKeyCode() == KeyEvent.VK_X || e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)
 		{
 			space = true;
+			
+			if(!timerStarted)
+			{
+				timerStarted = true;
+			}
 		}
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
 		{
 			right = true;
+			
+			if(!timerStarted)
+			{
+				timerStarted = true;
+			}
 		}
 		if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A)
 		{
 			left = true;
+			
+			if(!timerStarted)
+			{
+				timerStarted = true;
+			}
 		}
 		if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
 		{
 			down = true;
+			
+			if(!timerStarted)
+			{
+				timerStarted = true;
+			}
 		}
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
 		{
