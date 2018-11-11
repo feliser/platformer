@@ -11,7 +11,7 @@ public class Levels
 	public static ArrayList<String> infoList = new ArrayList<String>();
 	public static final String PATH_PREFIX = "Images/";
 	
-	public static void addPlatform(String filename, int x, int y) throws IOException
+	public static void addImage(String filename, int x, int y) throws IOException
 	{
 		BufferedImage img;
 		img = ImageIO.read(Main.class.getResource(PATH_PREFIX + filename)); 

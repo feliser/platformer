@@ -23,7 +23,7 @@ public class CollisionManager
 		PlatformList.add(x + "," + y + "," + type);
 		try 
 		{
-			Levels.addPlatform(filename, x, y);
+			Levels.addImage(filename, x, y);
 		} 
 		catch (IOException e) { e.printStackTrace(); }
 	}
