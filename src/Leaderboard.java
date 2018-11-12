@@ -133,8 +133,8 @@ public class Leaderboard
 				while (hasReceivedFinish == false)
 				{
 					String Line = null;
-					while ((Line = Input.readLine()) != null) 
-                    {
+					if ((Line = Input.readLine()) != null)
+					{
 						if (Line != null)
 						{
 							if (!Line.contains("Finished"))

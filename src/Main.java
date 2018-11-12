@@ -78,6 +78,8 @@ public class Main implements KeyListener {
 	{
 		getUUIDOrAdd();
 		
+		Leaderboard.getLeaderboard(localUUID, 1);
+		
 		Dimension screenSize = new Dimension(Toolkit.getDefaultToolkit().getScreenSize());
 		
 		if(screenSize.getWidth() == 1920)
