@@ -483,18 +483,22 @@ public class CollisionManager
 				{
 					Main.timerStarted = false;
 					Main.active = false;
+					
 					if (Main.active != previousActive)
 					{
 						Leaderboard.inputTime(Main.localUUID, "", (float) GameTimer.time, Main.Level);
 						previousActive = Main.active;
 					}
 					
-					
 					Main.right = false;
 					Main.left = false;
 					Main.space = false;
 					
 					EntityList.get(i).xV *= 0.8;
+				}
+				else
+				{
+					previousActive = true;
 				}
 			}
 		}
