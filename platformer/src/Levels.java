@@ -14,6 +14,7 @@ public class Levels
 	public static ArrayList<String> infoList = new ArrayList<String>();
 	public static final String IMAGES_PATH_PREFIX = "Images/";
 	public static final String LEVELS_PATH_PREFIX = "/Levels/";
+	public static int leftScroll, rightScroll, topScroll, bottomScroll;
 	public static AABB end;
 	
 	public static void addImage(String filename, int x, int y) throws IOException
@@ -28,12 +29,14 @@ public class Levels
 	{
 		for(int i = 0; i < imageList.size(); i++)
 		{
+			int key = (int) (CollisionManager.TILE_SIZE * Main.zoom);
 			String[] tokens = infoList.get(i).split(",");
-			g.drawImage(imageList.get(i), ((Integer.parseInt(tokens[0]) * CollisionManager.TILE_SIZE)) - Main.xScroll + Main.xOffset, (-(Integer.parseInt(tokens[1]) * CollisionManager.TILE_SIZE)) - Main.yScroll + Main.yOffset, null);
+			g.drawImage(imageList.get(i), (int)((((Integer.parseInt(tokens[0]) * CollisionManager.TILE_SIZE)) - Main.xScroll + Main.xOffset) * Main.zoom), (int)(((-(Integer.parseInt(tokens[1]) * CollisionManager.TILE_SIZE)) - Main.yScroll + Main.yOffset) * Main.zoom), (int) (imageList.get(i).getWidth() * Main.zoom), (int) (imageList.get(i).getHeight() * Main.zoom), null);
 			
-			//g.drawStrrirrrrng(tokens[0] + ", " + tokens[1], ((Integer.parseInt(tokens[0]) * CollisionManager.TILE_SIZE)) - Main.xScroll + Main.xOffset, (-(Integer.parseInt(tokens[1]) * CollisionManager.TILE_SIZE)) - Main.yScroll + Main.yOffset);
+			g.drawString(tokens[0] + ", " + tokens[1], (int)((((Integer.parseInt(tokens[0]) * CollisionManager.TILE_SIZE)) - Main.xScroll + Main.xOffset) * Main.zoom), (int)(((-(Integer.parseInt(tokens[1]) * CollisionManager.TILE_SIZE)) - Main.yScroll + Main.yOffset) * Main.zoom));
 		}
-		//g.drawRect();
+		
+		
 	}
 	
 	public static void loadLevel(String filename)
@@ -60,6 +63,22 @@ public class Levels
 				else if(tokens[0].equals("E"))
 				{
 					end = new AABB(Integer.parseInt(tokens[1]) * CollisionManager.TILE_SIZE, -(Integer.parseInt(tokens[2]) * CollisionManager.TILE_SIZE), CollisionManager.TILE_SIZE, CollisionManager.TILE_SIZE);
+				}
+				else if(tokens[0].equals("LS"))
+				{
+					leftScroll = Integer.parseInt(tokens[1]);
+				}
+				else if(tokens[0].equals("RS"))
+				{
+					rightScroll = Integer.parseInt(tokens[1]);
+				}
+				else if(tokens[0].equals("BS"))
+				{
+					bottomScroll = Integer.parseInt(tokens[1]);
+				}
+				else if(tokens[0].equals("TS"))
+				{
+					topScroll = Integer.parseInt(tokens[1]);
 				}
 			}
 			br.close();

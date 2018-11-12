@@ -37,7 +37,7 @@ public class Entity
 //		left.draw(g);
 //		right.draw(g);
 //		
-		g.drawRect(x + -Main.xScroll + Main.xOffset, y + -Main.yScroll + Main.yOffset, width, height);	
+		g.drawRect((int) ((x + -Main.xScroll + Main.xOffset) * Main.zoom), (int) ((y + -Main.yScroll + Main.yOffset) * Main.zoom), (int) (width * Main.zoom), (int) (height * Main.zoom));	
 	}
 	
 	public void update()

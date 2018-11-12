@@ -251,6 +251,10 @@ public class Player extends Entity
 		x = rX;
 		y = rY;
 		
+		Main.right = false;
+		Main.left = false;
+		Main.space = false;
+		
 		Main.timerStarted = false;
 		
 		GameTimer.reset();

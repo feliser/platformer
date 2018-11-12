@@ -24,7 +24,7 @@ public class Main implements KeyListener {
 	public static boolean initializing = true, timerStarted = false, active = true;
 	public static boolean right, left, space, down, jump = true;
 	public static int xScroll, yScroll, xOffset, yOffset;
-	public static final double zoom = 2.5;
+	public static double zoom;
 	
 	public static void main(String[] args)
 	{
@@ -54,6 +54,15 @@ public class Main implements KeyListener {
 	{
 		Dimension screenSize = new Dimension(Toolkit.getDefaultToolkit().getScreenSize());
 		
+		if(screenSize.getWidth() == 1920)
+		{
+			zoom = 1.5;
+		}
+		else
+		{
+			zoom = screenSize.getWidth() / 1366;
+		}
+
 		frame = new JFrame("Ancient Empire");
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,8 +71,8 @@ public class Main implements KeyListener {
 		frame.setUndecorated(true);
 		frame.setResizable(false);
 		
-		xOffset = frame.getWidth() / 2;
-		yOffset = frame.getHeight() / 2;
+		xOffset = (int)((frame.getWidth() / 2) / Main.zoom);
+		yOffset = (int)((frame.getHeight() / 2) / Main.zoom);
 		
 		panel = new JPanel()
 		{
@@ -82,7 +91,7 @@ public class Main implements KeyListener {
 		panel.addKeyListener(this);
 		panel.setFocusable(true);
 		panel.grabFocus();
-		panel.setBackground(new Color(135, 206, 235));
+		panel.setBackground(new Color(110, 138, 175));
 		
 		frame.add(panel);
 		
@@ -119,8 +128,26 @@ public class Main implements KeyListener {
 			player.xV += 1.5;
 		}
 		player.keyCheck();
-		xScroll -= ((xScroll - player.x - player.width / 2) * 0.2);
-		yScroll -= ((yScroll - player.y - player.height / 2) * 0.2);
+		
+		xScroll -= (((xScroll - player.x - player.width / 2) * Main.zoom) * 0.10);
+		yScroll -= (((yScroll - player.y - player.height / 2) * Main.zoom) * 0.10);
+			
+		if(Levels.leftScroll > xScroll)
+		{
+			xScroll = Levels.leftScroll;
+		}
+		if(Levels.rightScroll < xScroll)
+		{
+			xScroll = Levels.rightScroll;
+		}
+		if(Levels.topScroll < yScroll)
+		{
+			yScroll = Levels.topScroll;
+		}
+		if(Levels.bottomScroll > yScroll)
+		{
+			yScroll = Levels.bottomScroll;
+		}
 		
 		CollisionManager.update();
 		

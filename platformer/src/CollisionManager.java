@@ -488,7 +488,7 @@ public class CollisionManager
 					Main.left = false;
 					Main.space = false;
 					
-					EntityList.get(i).xV = 0;
+					EntityList.get(i).xV *= 0.9;
 				}
 			}
 		}
