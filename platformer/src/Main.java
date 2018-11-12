@@ -26,6 +26,7 @@ public class Main implements KeyListener {
 	public Player player;
 	
 	public static UUID localUUID;
+	public static int Level;
 	public static boolean initializing = true, timerStarted = false, active = true;
 	public static boolean right, left, space, down, jump = true;
 	public static int xScroll, yScroll, xOffset, yOffset;

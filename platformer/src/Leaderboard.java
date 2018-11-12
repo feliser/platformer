@@ -120,6 +120,72 @@ public class Leaderboard
 		}
 	}
 	
+	public static void inputTime(UUID playerUUID, String Name, float Time, int Level)
+	{
+		(new Thread() 
+        {
+			@Override
+            public void run() 
+            {
+				boolean hasReceivedRecord = false;
+				if (Output != null && startingConnection == false)
+				{
+					try 
+					{
+						Output.write("Record " + playerUUID.toString() + " " + playerUUID.toString() + " " + Time + " " + Level);
+						Output.flush();
+						Output.newLine();
+						while (hasReceivedRecord == false)
+						{
+							String Line = null;
+							if ((Line = Input.readLine()) != null)
+							{
+								if (Line != null)
+								{
+									if (Line.contains("Recorded"))
+									{
+										hasReceivedRecord = true;
+									}
+								}
+							}
+						}
+					} 
+					catch (Exception e) 
+					{
+						endConnection();
+						e.printStackTrace();
+					}
+				}
+				else if (startingConnection == false)
+				{
+					startConnection();
+					new java.util.Timer().schedule( 
+					        new java.util.TimerTask() 
+					        {
+					            @Override
+					            public void run() 
+					            {
+					            	inputTime(playerUUID, Name, Time, Level);
+					            }
+					        }, 250);
+				}
+				else
+				{
+					new java.util.Timer().schedule( 
+					        new java.util.TimerTask() 
+					        {
+					            @Override
+					            public void run() 
+					            {
+					            	inputTime(playerUUID, Name, Time, Level);
+					            }
+					        }, 250);
+				}
+            }
+        }
+        ).start();
+	}
+	
 	public static void getLeaderboard(UUID playerUUID, int Level)
 	{
 		boolean hasReceivedFinish = false;

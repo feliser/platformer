@@ -482,6 +482,7 @@ public class CollisionManager
 				{
 					Main.timerStarted = false;
 					Main.active = false;
+					Leaderboard.inputTime(Main.localUUID, "", (float) GameTimer.time, Main.Level);
 					
 					Main.right = false;
 					Main.left = false;
