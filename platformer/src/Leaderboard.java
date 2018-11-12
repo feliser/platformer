@@ -133,8 +133,8 @@ public class Leaderboard
 					try 
 					{
 						Output.write("Record " + playerUUID.toString() + " " + playerUUID.toString() + " " + Time + " " + Level);
-						Output.flush();
 						Output.newLine();
+						Output.flush();
 						while (hasReceivedRecord == false)
 						{
 							String Line = null;
