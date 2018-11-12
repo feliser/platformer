@@ -15,6 +15,7 @@ public class Leaderboard
 	public static BufferedReader Input;
 	public static final String serverIP = "68.66.207.211";
 	public static final int socketToConnectTo = 023123;
+	public static boolean startingConnection = false;
 	
 	public static void checkForMessages()
 	{
@@ -37,6 +38,7 @@ public class Leaderboard
 	
 	public static void startConnection()
 	{
+		startingConnection = true;
 		(new Thread() 
         {
 			@Override
@@ -57,14 +59,17 @@ public class Leaderboard
                         openSocket = Integer.valueOf(line);
                         break;
                     }
+                    Thread.sleep(50);
+                    System.out.println(openSocket);
                     clientSocket = new Socket(serverIP, openSocket);
                     out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
                     in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     Output = out;
                     Input = in;
+                    startingConnection = false;
                     while (true)
                     {
-                    	if (clientSocket != null)
+                    	if (clientSocket.isClosed() == false)
                     	{
                     		out.write("Keep Connection");
                         	out.newLine();
@@ -96,7 +101,7 @@ public class Leaderboard
 	
 	public static void endConnection()
 	{
-		if (clientSocket != null)
+		if (clientSocket.isClosed())
 		{
 			try 
 			{
@@ -118,7 +123,7 @@ public class Leaderboard
 	public static void getLeaderboard(UUID playerUUID, int Level)
 	{
 		boolean hasReceivedFinish = false;
-		if (Output != null)
+		if (Output != null && startingConnection == false)
 		{
 			try 
 			{
@@ -126,15 +131,18 @@ public class Leaderboard
 				while (hasReceivedFinish == false)
 				{
 					String Line = null;
-					if ((Line = Input.readLine()) != null)
-					{
-						if (!Line.contains("Finished"))
+					while ((Line = Input.readLine()) != null) 
+                    {
+						if (Line != null)
 						{
-							closeLeaderboardPositions.add(Line);
-						}
-						else
-						{
-							hasReceivedFinish = true;
+							if (!Line.contains("Finished"))
+							{
+								closeLeaderboardPositions.add(Line);
+							}
+							else
+							{
+								hasReceivedFinish = true;
+							}
 						}
 					}
 				}
@@ -145,7 +153,7 @@ public class Leaderboard
 				e.printStackTrace();
 			}
 		}
-		else
+		else if (startingConnection == false)
 		{
 			startConnection();
 			new java.util.Timer().schedule( 
