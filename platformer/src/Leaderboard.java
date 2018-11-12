@@ -127,7 +127,9 @@ public class Leaderboard
 		{
 			try 
 			{
-				Output.write(playerUUID.toString() + " " + Level);
+				Output.write("Get " + playerUUID.toString() + " " + Level);
+				Output.flush();
+				Output.newLine();
 				while (hasReceivedFinish == false)
 				{
 					String Line = null;
@@ -156,6 +158,18 @@ public class Leaderboard
 		else if (startingConnection == false)
 		{
 			startConnection();
+			new java.util.Timer().schedule( 
+			        new java.util.TimerTask() 
+			        {
+			            @Override
+			            public void run() 
+			            {
+			            	getLeaderboard(playerUUID, Level);
+			            }
+			        }, 500);
+		}
+		else
+		{
 			new java.util.Timer().schedule( 
 			        new java.util.TimerTask() 
 			        {

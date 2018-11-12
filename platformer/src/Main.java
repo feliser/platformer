@@ -65,8 +65,6 @@ public class Main implements KeyListener {
 	{
 		init();
 		
-		Leaderboard.getLeaderboard(localUUID, 1);
-		
 		Levels.loadLevel("1.txt");
 		
 		player = new Player(-58, 223, 52, 96);
