@@ -1,4 +1,3 @@
-import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class CollisionManager 

@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
+import java.util.UUID;
+import java.util.prefs.Preferences;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,9 +20,12 @@ public class Main implements KeyListener {
 	public JFrame frame;
 	public JPanel panel;
 	public Timer timer;
+	public Timer variableTimer;
 	public ActionListener updateListener;
+	public ActionListener variableListener;
 	public Player player;
 	
+	public static UUID localUUID;
 	public static boolean initializing = true, timerStarted = false, active = true;
 	public static boolean right, left, space, down, jump = true;
 	public static int xScroll, yScroll, xOffset, yOffset;
@@ -48,10 +53,33 @@ public class Main implements KeyListener {
 		
 		initializing = false;
 		timer.start();
+		variableTimer.start();
+	}
+	
+	public void getUUIDOrAdd()
+	{
+		Preferences prefs = Preferences.userNodeForPackage(this.getClass());
+		
+		String uuid = prefs.get("UUID", "");
+		
+		if (uuid.length() > 1)
+		{
+			localUUID = UUID.fromString(uuid);
+		}
+		
+		if (localUUID == null)
+		{
+			localUUID = UUID.randomUUID();
+			prefs.put("UUID", localUUID.toString());
+		}
 	}
 	
 	public void init()
 	{
+		getUUIDOrAdd();
+		
+		Leaderboard.getLeaderboard(localUUID, 1);
+		
 		Dimension screenSize = new Dimension(Toolkit.getDefaultToolkit().getScreenSize());
 		
 		if(screenSize.getWidth() == 1920)
@@ -82,7 +110,6 @@ public class Main implements KeyListener {
 				super.paintComponent(g);
 				if(!initializing)
 				{
-					tick();
 					draw(g);
 				}
 			}
@@ -101,7 +128,18 @@ public class Main implements KeyListener {
 				panel.repaint();
 			}
 		};
-		timer = new Timer(16, updateListener);
+		variableListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!initializing)
+				{
+					tick();
+				}
+			}
+		};
+		timer = new Timer(0, updateListener);
+		
+		variableTimer = new Timer(16, variableListener);
 		
 		frame.setVisible(true);
 		
