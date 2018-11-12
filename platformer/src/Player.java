@@ -186,7 +186,7 @@ public class Player extends Entity
 				onGround = false;
 				Main.jump = false;
 			}
-			else if(((pushesRight && !onGround) || rwallJump))
+			else if(((pushesRight && !onGround) && rwallJump))
 			{
 				if(yV < 3)
 				{
@@ -199,7 +199,7 @@ public class Player extends Entity
 				bypass = true;
 				Main.jump = false;
 			}
-			else if(((pushesLeft && !onGround) || lwallJump))
+			else if(((pushesLeft && !onGround) && lwallJump))
 			{
 				if(yV > -3)
 				{
@@ -250,6 +250,8 @@ public class Player extends Entity
 		yV = 0;
 		x = rX;
 		y = rY;
+		
+		acceleration = 0.3f;
 		
 		Main.right = false;
 		Main.left = false;
