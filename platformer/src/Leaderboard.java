@@ -9,14 +9,14 @@ import java.util.UUID;
 public class Leaderboard 
 {
 	public static ArrayList<String> closeLeaderboardPositions;
-	public Socket clientSocket;
-	public int openSocket;
-	public BufferedWriter Output;
-	public BufferedReader Input;
+	public static Socket clientSocket;
+	public static int openSocket;
+	public static BufferedWriter Output;
+	public static BufferedReader Input;
 	public static final String serverIP = "68.66.207.211";
 	public static final int socketToConnectTo = 023123;
 	
-	public void checkForMessages()
+	public static void checkForMessages()
 	{
 		if (Input != null)
 		{
@@ -35,7 +35,7 @@ public class Leaderboard
 		}
 	}
 	
-	public void startConnection()
+	public static void startConnection()
 	{
 		(new Thread() 
         {
@@ -55,10 +55,8 @@ public class Leaderboard
                     while ((line = in.readLine()) != null) 
                     {
                         openSocket = Integer.valueOf(line);
-                        System.out.println(line);
                         break;
                     }
-                    System.out.println(openSocket);
                     clientSocket = new Socket(serverIP, openSocket);
                     out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
                     in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -96,7 +94,7 @@ public class Leaderboard
         ).start();
 	}
 	
-	public void endConnection()
+	public static void endConnection()
 	{
 		if (clientSocket != null)
 		{
@@ -117,10 +115,10 @@ public class Leaderboard
 		}
 	}
 	
-	public void getLeaderboard(UUID playerUUID, int Level)
+	public static void getLeaderboard(UUID playerUUID, int Level)
 	{
 		boolean hasReceivedFinish = false;
-		if (clientSocket != null)
+		if (Output != null)
 		{
 			try 
 			{

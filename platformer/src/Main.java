@@ -20,7 +20,9 @@ public class Main implements KeyListener {
 	public JFrame frame;
 	public JPanel panel;
 	public Timer timer;
+	public Timer variableTimer;
 	public ActionListener updateListener;
+	public ActionListener variableListener;
 	public Player player;
 	
 	public static UUID localUUID;
@@ -69,6 +71,7 @@ public class Main implements KeyListener {
 		
 		initializing = false;
 		timer.start();
+		variableTimer.start();
 	}
 	
 	public void init()
@@ -105,7 +108,6 @@ public class Main implements KeyListener {
 				super.paintComponent(g);
 				if(!initializing)
 				{
-					tick();
 					draw(g);
 				}
 			}
@@ -124,7 +126,19 @@ public class Main implements KeyListener {
 				panel.repaint();
 			}
 		};
-		timer = new Timer(16, updateListener);
+		
+		variableListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!initializing)
+				{
+					tick();
+				}
+			}
+		};
+		timer = new Timer(0, updateListener);
+		
+		variableTimer = new Timer(16, variableListener);
 		
 		frame.setVisible(true);
 		
