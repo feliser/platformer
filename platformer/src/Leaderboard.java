@@ -60,7 +60,6 @@ public class Leaderboard
                         break;
                     }
                     Thread.sleep(50);
-                    System.out.println(openSocket);
                     clientSocket = new Socket(serverIP, openSocket);
                     out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
                     in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
