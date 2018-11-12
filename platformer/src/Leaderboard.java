@@ -92,6 +92,7 @@ public class Leaderboard
                 }
                 catch (Exception e) 
                 {
+                	endConnection();
                     e.printStackTrace();
                 }
             }

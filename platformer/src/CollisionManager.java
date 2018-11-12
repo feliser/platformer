@@ -7,6 +7,7 @@ public class CollisionManager
 	public static ArrayList<Integer> PlatformDataList;
 	public static ArrayList<AABB> newPlatformList;
 	public static final int TILE_SIZE = 64;
+	public static boolean previousActive = true;
 	
 	public static void init()
 	{
@@ -482,7 +483,12 @@ public class CollisionManager
 				{
 					Main.timerStarted = false;
 					Main.active = false;
-					Leaderboard.inputTime(Main.localUUID, "", (float) GameTimer.time, Main.Level);
+					if (Main.active != previousActive)
+					{
+						Leaderboard.inputTime(Main.localUUID, "", (float) GameTimer.time, Main.Level);
+						previousActive = Main.active;
+					}
+					
 					
 					Main.right = false;
 					Main.left = false;
