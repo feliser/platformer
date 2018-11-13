@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Player extends Entity
@@ -255,6 +256,8 @@ public class Player extends Entity
 		Main.right = false;
 		Main.left = false;
 		Main.space = false;
+		
+		Main.jump = true;
 		
 		Main.timerStarted = false;
 		

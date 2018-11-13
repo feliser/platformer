@@ -28,9 +28,12 @@ public class GameTimer
 	
 	public static void draw(Graphics g)
 	{
-		g.setColor(gray);  
+		  
 		g.setFont(font);
-        g.drawString(String.valueOf(time/1000), 20, 110);
+		g.setColor(Color.GRAY);
+        g.drawString(String.valueOf(time/1000), 22, 112);
+		g.setColor(gray);
+		g.drawString(String.valueOf(time/1000), 20, 110);
 	}
 	
 	public static void reset()
