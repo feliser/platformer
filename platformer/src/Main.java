@@ -56,6 +56,8 @@ public class Main implements KeyListener {
 		initializing = false;
 		
 		timer.start();
+		
+		variableTimer.start();
 	}
 	
 	public void getUUIDOrAdd()
@@ -122,8 +124,6 @@ public class Main implements KeyListener {
 		
 		frame.add(panel);
 		
-		variableTimer = new Timer(16, variableListener);
-		
 		updateListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -142,6 +142,8 @@ public class Main implements KeyListener {
 		};
 		
 		timer = new Timer(0, updateListener);
+		
+		variableTimer = new Timer(16, variableListener);
 		
 		frame.setVisible(true);
 		
