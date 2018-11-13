@@ -42,6 +42,7 @@ public class Levels
 	
 	public static void loadLevel(String filename)
 	{
+		Main.Level = Integer.parseInt(filename.replaceAll(".txt", ""));
 		InputStream is = Main.class.getClass().getResourceAsStream(LEVELS_PATH_PREFIX + filename);
 	    InputStreamReader isr = new InputStreamReader(is);
 	    BufferedReader br = new BufferedReader(isr);
