@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
+import java.util.UUID;
+import java.util.prefs.Preferences;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,9 +20,13 @@ public class Main implements KeyListener {
 	public JFrame frame;
 	public JPanel panel;
 	public Timer timer;
+	public Timer variableTimer;
 	public ActionListener updateListener;
+	public ActionListener variableListener;
 	public Player player;
 	
+	public static UUID localUUID;
+	public static int Level;
 	public static boolean initializing = true, timerStarted = false, active = true;
 	public static Dimension screenSize = new Dimension(Toolkit.getDefaultToolkit().getScreenSize());
 	public static boolean right, left, space, down, jump = true;
@@ -42,18 +48,40 @@ public class Main implements KeyListener {
 	public Main()
 	{
 		init();
-		Menu.init();
 		
 		Levels.loadLevel("1.txt");
 		
 		player = new Player(-58, 223, 52, 96);
 		
 		initializing = false;
+		
 		timer.start();
+	}
+	
+	public void getUUIDOrAdd()
+	{
+		Preferences prefs = Preferences.userNodeForPackage(this.getClass());
+		
+		String uuid = prefs.get("UUID", "");
+		
+		if (uuid.length() > 1)
+		{
+			localUUID = UUID.fromString(uuid);
+		}
+		
+		if (localUUID == null)
+		{
+			localUUID = UUID.randomUUID();
+			prefs.put("UUID", localUUID.toString());
+		}
 	}
 	
 	public void init()
 	{
+		getUUIDOrAdd();
+		
+		Leaderboard.getLeaderboard(localUUID, 1);
+		
 		if(screenSize.getWidth() == 1920)
 		{
 			zoom = 1.5;
@@ -82,7 +110,6 @@ public class Main implements KeyListener {
 				super.paintComponent(g);
 				if(!initializing)
 				{
-					tick();
 					draw(g);
 				}
 			}
@@ -95,19 +122,34 @@ public class Main implements KeyListener {
 		
 		frame.add(panel);
 		
+		variableTimer = new Timer(16, variableListener);
+		
 		updateListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				panel.repaint();
 			}
 		};
-		timer = new Timer(16, updateListener);
+		
+		variableListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!initializing)
+				{
+					tick();
+				}
+			}
+		};
+		
+		timer = new Timer(0, updateListener);
 		
 		frame.setVisible(true);
 		
 		CollisionManager.init();
 		
 		GameTimer.init();
+		
+		Menu.init();
 	}
 	
 	public void draw(Graphics g)
