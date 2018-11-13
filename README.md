@@ -1,3 +1,3 @@
 # platformer
 
-Hi THis is a NOT (not) GAME.
+Hi THis is a NOT (not) NOT GAME.
