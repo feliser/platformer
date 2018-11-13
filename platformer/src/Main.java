@@ -1,6 +1,9 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.DisplayMode;
 import java.awt.Graphics;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +31,8 @@ public class Main implements KeyListener {
 	public static UUID localUUID;
 	public static int Level;
 	public static boolean initializing = true, timerStarted = false, active = true;
+	public static GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    public static GraphicsDevice[] gs = ge.getScreenDevices();
 	public static Dimension screenSize = new Dimension(Toolkit.getDefaultToolkit().getScreenSize());
 	public static boolean right, left, space, down, jump = true;
 	public static int xScroll, yScroll, xOffset, yOffset;
@@ -141,7 +146,19 @@ public class Main implements KeyListener {
 			}
 		};
 		
-		timer = new Timer(0, updateListener);
+		int refreshRate = 30;
+		
+		for (int i = 0; i < gs.length; i++) 
+		{
+		      DisplayMode dm = gs[i].getDisplayMode();
+
+		      if (dm.getRefreshRate() > refreshRate)
+		      {
+		    	  refreshRate = dm.getRefreshRate();
+		      }
+		 }
+		
+		timer = new Timer(1000 / refreshRate - refreshRate / 10, updateListener);
 		
 		variableTimer = new Timer(16, variableListener);
 		

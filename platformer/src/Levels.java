@@ -29,7 +29,6 @@ public class Levels
 	{
 		for(int i = 0; i < imageList.size(); i++)
 		{
-			int key = (int) (CollisionManager.TILE_SIZE * Main.zoom);
 			String[] tokens = infoList.get(i).split(",");
 			
 			g.drawImage(imageList.get(i), (int)((((Integer.parseInt(tokens[0]) * CollisionManager.TILE_SIZE)) - Main.xScroll + Main.xOffset) * Main.zoom), (int)(((-(Integer.parseInt(tokens[1]) * CollisionManager.TILE_SIZE)) - Main.yScroll + Main.yOffset) * Main.zoom), (int) (imageList.get(i).getWidth() * Main.zoom), (int) (imageList.get(i).getHeight() * Main.zoom), null);
