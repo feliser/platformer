@@ -141,7 +141,7 @@ public class Main implements KeyListener {
 			}
 		};
 		
-		timer = new Timer(7, updateListener);
+		timer = new Timer(6, updateListener);
 		
 		variableTimer = new Timer(16, variableListener);
 		
@@ -264,7 +264,7 @@ public class Main implements KeyListener {
 		{
 			System.exit(0);
 		}
-		if(e.getKeyCode() == KeyEvent.VK_R)
+		if(e.getKeyCode() == KeyEvent.VK_R && Main.initializing == false)
 		{
 			player.reset();
 			active = true;
