@@ -32,7 +32,6 @@ public class Main implements KeyListener {
 	public static boolean right, left, space, down, jump = true;
 	public static int xScroll, yScroll, xOffset, yOffset;
 	public static double zoom;
-	public static boolean maxSettings;
 	
 	public static void main(String[] args)
 	{
@@ -142,14 +141,8 @@ public class Main implements KeyListener {
 			}
 		};
 		
-		if (maxSettings == true)
-		{
-			timer = new Timer(0, updateListener);
-		}
-		else
-		{
-			timer = new Timer(6, updateListener);
-		}
+
+		timer = new Timer(6, updateListener);
 		
 		variableTimer = new Timer(16, variableListener);
 		
@@ -283,7 +276,9 @@ public class Main implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		if (Menu.inMenu == true && Main.initializing == false && e.getKeyCode() == KeyEvent.VK_M)
 		{
-			maxSettings = true;
+			timer.stop();
+			timer = new Timer(0, updateListener);
+			timer.start();
 		}
 		
 		if(active)
